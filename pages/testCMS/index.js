@@ -3,43 +3,31 @@ import { request } from "../../lib/datocms";
 
 export const pageQuery = `
   query {
-    datoCmsSite {
-      faviconMetaTags {
-        tags
-      }
+    allBoots {
+      id
+      snikersTitle
+      _status
+      _firstPublishedAt
     }
-    datoCmsBoot {
-      seoMetaTags {
-        tags
-      }
-      catalogImages {
-        alt
-        gatsbyImageData
-      }
-      catalogTitle
-      description1
-      description2
+  
+    _allBootsMeta {
+      count
     }
   }
 `;
 
-// export async function getStaticProps() {
-//   const data = await request({
-//     query: pageQuery,
-//   });
-//   return {
-//     props: { data },
-//   };
-// }
-
 export async function getStaticProps() {
-  const data = "huy";
+  const data = await request({
+    query: pageQuery,
+  });
+  console.log(data);
   return {
     props: { data },
   };
 }
 
 function testCMS({ data }) {
+  console.log(data);
   return <div>{JSON.stringify(data, null, 2)}</div>;
 }
 
